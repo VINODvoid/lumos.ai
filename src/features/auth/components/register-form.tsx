@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import Image from "next/image";
+
 
 const registerSchema = z.object({
   email: z.email("Please enter a valid email address"),
@@ -80,6 +82,7 @@ export function RegisterForm() {
                     type="button"
                     disabled={isPending}
                   >
+                     <Image src={"/github.svg"} width={20} height={20} alt="github"/>
                     Continue with Github
                   </Button>
                   <Button
@@ -88,6 +91,7 @@ export function RegisterForm() {
                     type="button"
                     disabled={isPending}
                   >
+                     <Image src={"/google.svg"} width={20} height={20} alt="google"/>
                     Continue with Google
                   </Button>
                 </div>
