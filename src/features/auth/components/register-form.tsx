@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import Image from "next/image";
+
 
 const registerSchema = z.object({
   email: z.email("Please enter a valid email address"),
@@ -30,6 +32,14 @@ path:["confirmPassword"]
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
+/**
+ * Render a registration form UI with email, password, and confirm password fields plus social sign-in buttons.
+ *
+ * The form validates input with the file's Zod schema, submits credentials to the auth client, navigates to the home
+ * route on successful signup, and displays an error toast on failure. Form inputs and buttons are disabled while submission is in progress.
+ *
+ * @returns The registration form as a JSX element
+ */
 export function RegisterForm() {
   const router = useRouter();
   const form = useForm<RegisterFormValues>({
@@ -80,6 +90,7 @@ export function RegisterForm() {
                     type="button"
                     disabled={isPending}
                   >
+                     <Image src={"/github.svg"} width={20} height={20} alt="github"/>
                     Continue with Github
                   </Button>
                   <Button
@@ -88,6 +99,7 @@ export function RegisterForm() {
                     type="button"
                     disabled={isPending}
                   >
+                     <Image src={"/google.svg"} width={20} height={20} alt="google"/>
                     Continue with Google
                   </Button>
                 </div>

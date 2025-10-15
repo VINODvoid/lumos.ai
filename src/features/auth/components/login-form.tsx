@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -25,6 +26,14 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
+/**
+ * Render a login form with client-side validation and email sign-in.
+ *
+ * Attempts to sign the user in with the provided email and password when submitted.
+ * On successful sign-in navigates to the site root ("/"); on failure displays an error toast with the provider error message.
+ *
+ * @returns A JSX element containing the login UI (social buttons, email and password fields, and submit control).
+ */
 export function LoginForm() {
   const router = useRouter();
   const form = useForm<LoginFormValues>({
@@ -69,6 +78,7 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
+                    <Image src={"/github.svg"} width={20} height={20} alt="github"/>
                     Continue with Github
                   </Button>
                   <Button
@@ -77,6 +87,7 @@ export function LoginForm() {
                     type="button"
                     disabled={isPending}
                   >
+                     <Image src={"/google.svg"} width={20} height={20} alt="google"/>
                     Continue with Google
                   </Button>
                 </div>
