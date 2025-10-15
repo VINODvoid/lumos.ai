@@ -32,6 +32,14 @@ path:["confirmPassword"]
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
+/**
+ * Render a registration form UI with email, password, and confirm password fields plus social sign-in buttons.
+ *
+ * The form validates input with the file's Zod schema, submits credentials to the auth client, navigates to the home
+ * route on successful signup, and displays an error toast on failure. Form inputs and buttons are disabled while submission is in progress.
+ *
+ * @returns The registration form as a JSX element
+ */
 export function RegisterForm() {
   const router = useRouter();
   const form = useForm<RegisterFormValues>({
