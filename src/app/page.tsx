@@ -28,7 +28,10 @@ export default   function Home() {
     {
       onSuccess:()=>{
         toast.success("AI test successful");
-      }
+      },
+      onError:(error)=>{
+        toast.error(error.message);
+      },
     }
   ))
 
