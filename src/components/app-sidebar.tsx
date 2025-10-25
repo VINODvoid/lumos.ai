@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { authClient } from "@/lib/auth-client";
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscriptions";
 const menuItems = [
   {
     title: "Home",
@@ -42,6 +43,7 @@ const menuItems = [
 export const AppSidebar = () => {
     const router = useRouter();
     const pathname=  usePathname();
+    const {hasActiveSubscriptions,isLoading}= useHasActiveSubscription();
   return (
     <Sidebar collapsible="icon">
         <SidebarHeader>
@@ -85,21 +87,25 @@ export const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          {!hasActiveSubscriptions && !isLoading && (
             <SidebarMenuItem>
                 <SidebarMenuButton
                 tooltip="Upgrade to Pro"
                 className="gap-x-4 h-10 px-4"
-                onClick={()=>{}}
+                onClick={()=>authClient.checkout({
+                  slug:"lumos.ai-pro"
+                })}
                 >
                     <StarIcon className="h-4 w-4"/>
                     <span className="">Upgrade to pro</span>
                 </SidebarMenuButton>
             </SidebarMenuItem>
+          )}
             <SidebarMenuItem>
                 <SidebarMenuButton
                 tooltip="Billing Portal"
                 className="gap-x-4 h-10 px-4"
-                onClick={()=>{}}
+                onClick={()=>authClient.customer.portal()}
                 >
                     <CreditCardIcon className="h-4 w-4"/>
                     <span className="">Billing Portal</span>
