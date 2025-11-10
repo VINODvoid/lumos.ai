@@ -1,3 +1,4 @@
+
 import { useTRPC } from "@/trpc/client";
 import {
   useMutation,
@@ -37,7 +38,7 @@ export const useUpdateWorkflowName = () => {
   return useMutation(
     trpc.workflows.updateName.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Workflow "${data.name}" created`);
+        toast.success(`Workflow "${data.name}" updated`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(trpc.workflows.getOne.queryOptions({id:data.id}));
       },
@@ -72,3 +73,24 @@ export const useSuspenseWorkflow = (id:string)=> {
     id
   }));
 }
+
+
+export const useUpdateWorkflow = () => {
+  const queryClient = useQueryClient();
+  const trpc = useTRPC();
+
+  return useMutation(
+    trpc.workflows.update.mutationOptions({
+      onSuccess: (data) => {
+        toast.success(`Workflow "${data.name}" saved`);
+        queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
+        queryClient.invalidateQueries(
+          trpc.workflows.getOne.queryOptions({ id: data.id })
+        );
+      },
+      onError: (error) => {
+        toast.error(`Failed to save workflow: ${error.message}`);
+      },
+    })
+  );
+};
