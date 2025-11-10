@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { useWorkflowParams } from "../hooks/use-workflows-params";
 import { useEntitySearch } from "@/hooks/use-entity-search";
 import type { Workflow } from "@/generated/prisma";
-import { da } from "date-fns/locale";
 import { WorkflowIcon } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
@@ -150,7 +149,7 @@ export const WorkflowItem = ({
     removeWorkflow.mutate({id:data.id});
   }
 return(
-  <EntityItem 
+  <EntityItem
   href={`/workflows/${data.id}`}
   title={data.name}
   subtitle={
